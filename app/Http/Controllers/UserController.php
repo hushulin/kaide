@@ -41,9 +41,10 @@ class UserController extends Controller
             $content = ['api_token' => $user->api_token];
             $status = 200;
         }else {
-            $content = ['api_token' => ''];
-            $status = 404;
+            $content = ['api_token' => null];
+            $status = 200;
         }
+
         return response($content , $status)->header('Content-Type' , 'json');
     }
 
@@ -52,7 +53,7 @@ class UserController extends Controller
         $api_token = $r->input('api_token');
         if ($api_token) {
             User::where('api_token' , $api_token)->update([
-                'api_token' => '',
+                'api_token' => null,
             ]);
         }
 
