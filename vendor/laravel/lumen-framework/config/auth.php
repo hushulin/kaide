@@ -37,7 +37,7 @@ return [
 
     'guards' => [
         // 'api' => ['driver' => 'api'],
-        'admin' => ['driver' => 'admin'],
+        'admin' => ['driver' => 'admin' , 'provider' => 'admin'],
     ],
 
     /*
@@ -59,6 +59,7 @@ return [
 
     'providers' => [
         //
+        'admin' => ['driver' => 'eloquent' , 'model' => 'App\User'],
     ],
 
     /*
