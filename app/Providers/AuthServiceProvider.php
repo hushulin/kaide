@@ -33,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Auth::viaRequest('admin', function ($request) {
             if ($request->input('api_token')) {
-                return 1;
+                
                 return User::where('api_token', $request->input('api_token'))->first();
             }
         });
