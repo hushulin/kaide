@@ -23,6 +23,9 @@ $app->get('/v' , function(){
 });
 
 $app->get('/user' , ['middleware' => 'auth:admin' , function() use ($app) {
+
+	echo Auth::id();
+	
 	return $app->version();
 }]);
 
