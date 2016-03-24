@@ -38,6 +38,9 @@ class UserController extends Controller
 
         $user = User::where('name' , $name)->where('password' , $password)->first();
         if ($user) {
+            $api_token = md5($name . $password . time());
+            $user->api_token = $api_token;
+            $user->save();
             $content = ['api_token' => $user->api_token];
             $status = 200;
         }else {
