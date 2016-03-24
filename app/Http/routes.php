@@ -21,3 +21,7 @@ $app->get('/v' , function(){
     $user = User::all();
     var_dump($user);
 });
+
+$app->get('/user' , ['middleware' => 'auth:api' , function() {
+	return $app->version();
+}]);
