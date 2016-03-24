@@ -22,6 +22,6 @@ $app->get('/v' , function(){
     var_dump($user);
 });
 
-$app->get('/user' , ['middleware' => 'admin:admin' , function() use ($app) {
+$app->get('/user' , ['middleware' => 'auth:admin' , function() use ($app) {
 	return $app->version();
 }]);
