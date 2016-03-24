@@ -20,13 +20,20 @@ class UserController extends Controller
     public function register(Request $r)
     {
         $name = $r->input('name');
+
+        if ( User::where('name' , $name)->count() ) {
+            return response(['message' => '用户名已经被使用！'] , 200);
+        }
+
         $password = $r->input('password');
         $api_token = md5($name . $password . time());
+
         User::create([
             'name' => $name,
             'password' => $password,
             'api_token' => $api_token,
         ]);
+        
         return response(['api_token' => $api_token] , 200)->header('Content-Type' , 'json');
     }
 

@@ -31,3 +31,5 @@ $app->get('/user' , ['middleware' => 'auth:admin' , function() use ($app) {
 $app->get('/user/register' , ['uses' => 'UserController@register']);
 $app->get('/user/login' , ['uses' => 'UserController@login']);
 $app->get('/user/logout' , ['uses' => 'UserController@logout']);
+
+// 
