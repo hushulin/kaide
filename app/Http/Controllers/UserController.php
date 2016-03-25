@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
 
 class UserController extends Controller
 {
@@ -95,6 +96,50 @@ class UserController extends Controller
         }
 
         return response(['messge' => 'success!'] , 200)->header('Content-Type' , 'json');
+    }
+
+
+    /**
+    * @ApiDescription(section="User", description="用户中心-修改用户的密码，默认水表 ，绑定微信号")
+    * @ApiMethod(type="get")
+    * @ApiRoute(name="/user/update")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiParams(name="password", type="string", nullable=true, description="修改密码")
+    * @ApiParams(name="default_meter", type="int", nullable=true, description="修改默认水表")
+    * @ApiParams(name="wechat_number", type="string", nullable=true, description="绑定微信号")
+    * @ApiReturn(type="object", sample="{
+    *  'messge':'password update success!'
+    * }")
+    */
+    public function update(Request $r)
+    {
+
+        // money later update ...
+
+        $user = Auth::user();
+        $password = $r->input('password');
+        $default_meter = $r->input('default_meter');
+        $wechat_number = $r->input('wechat_number');
+
+        $msg = '';
+        if ($password) {
+            $user->password = $password;
+            $msg .= 'password update success!';
+        }
+
+        if ($default_meter) {
+            $user->default_meter = $default_meter;
+            $msg .= 'default_meter update success!';
+        }
+
+        if ($wechat_number) {
+            $user->wechat_number = $wechat_number;
+            $msg .= 'wechat_number update success!';
+        }
+
+        $user->save();
+
+        return response(['messge' => $msg] , 200)->header('Content-Type' , 'json');
     }
 
 

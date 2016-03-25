@@ -35,7 +35,6 @@ $app->get('/user/register' , ['uses' => 'UserController@register']);
 $app->get('/user/login' , ['uses' => 'UserController@login']);
 $app->get('/user/logout' , ['uses' => 'UserController@logout']);
 
-//
+$app->get('/user/update' , ['middleware' => 'auth:admin' , 'uses' => 'UserController@update']);
 
-// api doc ...
-$app->get('/apidoc'  , ['uses' => 'ApiDocController@gen']);
+//
