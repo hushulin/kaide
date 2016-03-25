@@ -85,6 +85,10 @@ class MeterController extends Controller
 
         $user->default_meter = $r->input('default_meter');
 
+        if ( ! Meter::find($r->input('default_meter')) ) {
+            return response(['message' => '设置失败！没有水表:' . $r->input('default_meter') ] , 200)->header('Content-Type' , 'json');
+        }
+
         $user->save();
 
         return response(['message' => '设置成功！ID:' . $r->input('default_meter') ] , 200)->header('Content-Type' , 'json');
