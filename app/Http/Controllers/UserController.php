@@ -151,10 +151,10 @@ class UserController extends Controller
     *  'money':'2.00'
     * }")
     */
-    public function money()
+    public function money(Request $r)
     {
-
-        return response([ 'money' => Auth::user()->money ] , 200)->header('Content-Type' , 'json');
+        $money = Auth::user()->money;
+        return response([ 'money' => $money ] , 200)->header('Content-Type' , 'json');
     }
 
 
