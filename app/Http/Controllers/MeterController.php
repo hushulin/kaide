@@ -48,4 +48,23 @@ class MeterController extends Controller
             return response(['message' => '添加水表出错！'] , 200)->header('Content-Type' , 'json');
         }
     }
+
+    /**
+    * @ApiDescription(section="Meter", description="水表-该账户下的所有水表")
+    * @ApiMethod(type="get")
+    * @ApiRoute(name="/meter")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiReturn(type="object", sample="[{
+    *  'id':'int',
+    *  'meter_number':'string',
+    *  'meter_md5':'string',
+    *  'user_id':'int',
+    *  'status':'int',
+    *  'meter_ton':'demical'
+    * }]")
+    */
+    public function index(Request $r)
+    {
+        return response(Meter::where('user_id' , Auth::id())->get() , 200)->header('Content-Type' , 'json');
+    }
 }
