@@ -142,5 +142,20 @@ class UserController extends Controller
         return response(['messge' => $msg] , 200)->header('Content-Type' , 'json');
     }
 
+    /**
+    * @ApiDescription(section="User", description="用户中心-用户余额")
+    * @ApiMethod(type="get")
+    * @ApiRoute(name="/user/money")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiReturn(type="object", sample="{
+    *  'money':'2.00'
+    * }")
+    */
+    public function money()
+    {
+
+        return response([ 'money' => Auth::user()->money ] , 200)->header('Content-Type' , 'json');
+    }
+
 
 }

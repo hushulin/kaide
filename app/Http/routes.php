@@ -37,4 +37,8 @@ $app->get('/user/logout' , ['uses' => 'UserController@logout']);
 
 $app->get('/user/update' , ['middleware' => 'auth:admin' , 'uses' => 'UserController@update']);
 
+$app->group(['middleware' => 'auth:admin'], function($app)
+{
+    $app->get('/user/money', ['uses' => 'UserController@money']);
+});
 //
