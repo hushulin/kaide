@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Crada\Apidoc\Builder;
 use Crada\Apidoc\Exception;
 
-class ExampleController extends Controller
+class ApiDocController extends Controller
 {
     /**
      * Create a new controller instance.
