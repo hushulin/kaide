@@ -83,7 +83,7 @@ class UserController extends Controller
     * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
     * @ApiReturn(type="object", sample="{
     *  'messge':'success!'
-    * }" , description="")
+    * }")
     */
     public function logout(Request $r)
     {
