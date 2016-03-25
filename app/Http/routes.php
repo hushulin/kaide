@@ -17,11 +17,6 @@ $app->get('/', function () use ($app) {
     return $app->version();
 });
 
-$app->get('/v' , function(){
-    $user = User::all();
-    var_dump($user);
-});
-
 $app->get('/user' , ['middleware' => 'auth:admin' , function() use ($app) {
 
 	echo Auth::id();
@@ -40,5 +35,6 @@ $app->get('/user/update' , ['middleware' => 'auth:admin' , 'uses' => 'UserContro
 $app->group(['middleware' => 'auth:admin' , 'namespace' => 'App\Http\Controllers'], function($app)
 {
     $app->get('/user/money', ['uses' => 'UserController@money']);
+    $app->get('/meter/add' , ['uses' => 'MeterController@add']);
 });
 //
