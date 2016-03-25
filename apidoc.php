@@ -8,7 +8,7 @@ $classes = array(
    'App\Http\Controllers\ExampleController',
 );
 
-$output_dir  = __DIR__.'/apidocs';
+$output_dir  = __DIR__.'/public/apidocs';
 $output_file = 'api.html'; // defaults to index.html
 
 try {
