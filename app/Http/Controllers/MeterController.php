@@ -67,4 +67,26 @@ class MeterController extends Controller
     {
         return response(Meter::where('user_id' , Auth::id())->get() , 200)->header('Content-Type' , 'json');
     }
+
+
+    /**
+    * @ApiDescription(section="Meter", description="水表-设置默认水表")
+    * @ApiMethod(type="get")
+    * @ApiRoute(name="/meter/set-default")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiParams(name="default_meter", type="int", nullable=false, description="水表ID")
+    * @ApiReturn(type="object", sample="[{
+    *  'message':'string'
+    * }]")
+    */
+    public function setDefault(Request $r)
+    {
+        $user = Auth::user();
+
+        $user->default_meter = $r->input('default_meter');
+
+        $user->save();
+
+        return response(['message' => '设置成功！ID:' . $r->input('default_meter') ] , 200)->header('Content-Type' , 'json');
+    }
 }

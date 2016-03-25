@@ -37,5 +37,6 @@ $app->group(['middleware' => 'auth:admin' , 'namespace' => 'App\Http\Controllers
     $app->get('/user/money', ['uses' => 'UserController@money']);
     $app->get('/meter/add' , ['uses' => 'MeterController@add']);
     $app->get('/meter' , ['uses' => 'MeterController@index']);
+    $app->get('/meter/set-default' , ['uses' => 'MeterController@setDefault']);
 });
 //
