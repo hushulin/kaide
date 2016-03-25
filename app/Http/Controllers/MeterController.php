@@ -33,6 +33,10 @@ class MeterController extends Controller
     public function add(Request $r)
     {
         $meter_number = $r->input('meter_number');
+
+        if ( Meter::where('meter_number' , $meter_number)->where('user_id' , Auth::id())->count() ) {
+            return response(['message' => '该账户下已经添加过次水表！'] , 200)->header('Content-Type' , 'json');
+        }
         $meter_md5 = md5($meter_number);
         $user_id = Auth::id();
         $status = 1;
