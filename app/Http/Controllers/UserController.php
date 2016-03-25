@@ -53,7 +53,7 @@ class UserController extends Controller
     * @ApiParams(name="name", type="string", nullable=false, description="用户名")
     * @ApiParams(name="password", type="string", nullable=false, description="密码")
     * @ApiReturn(type="object", sample="{
-    *  'api_token':'string|null'
+    *  'api_token':'string'
     * }" , description="如果是返回空，则说明登录失败")
     */
     public function login(Request $r)
