@@ -16,7 +16,16 @@ class UserController extends Controller
         //
     }
 
-    //
+    /**
+    * @ApiDescription(section="User", description="用户中心-注册")
+    * @ApiMethod(type="get")
+    * @ApiRoute(name="/user/register")
+    * @ApiParams(name="name", type="string", nullable=false, description="用户名")
+    * @ApiParams(name="password", type="string", nullable=false, description="密码")
+    * @ApiReturn(type="object", sample="{
+    *  'api_token':'string'
+    * }")
+    */
     public function register(Request $r)
     {
         $name = $r->input('name');
@@ -33,11 +42,20 @@ class UserController extends Controller
             'password' => $password,
             'api_token' => $api_token,
         ]);
-        
+
         return response(['api_token' => $api_token] , 200)->header('Content-Type' , 'json');
     }
 
-
+    /**
+    * @ApiDescription(section="User", description="用户中心-登录")
+    * @ApiMethod(type="get")
+    * @ApiRoute(name="/user/login")
+    * @ApiParams(name="name", type="string", nullable=false, description="用户名")
+    * @ApiParams(name="password", type="string", nullable=false, description="密码")
+    * @ApiReturn(type="object", sample="{
+    *  'api_token':'string|null'
+    * }" , description="如果是返回空，则说明登录失败")
+    */
     public function login(Request $r)
     {
         $name = $r->input('name');
@@ -58,6 +76,15 @@ class UserController extends Controller
         return response($content , $status)->header('Content-Type' , 'json');
     }
 
+    /**
+    * @ApiDescription(section="User", description="用户中心-退出")
+    * @ApiMethod(type="get")
+    * @ApiRoute(name="/user/logout")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiReturn(type="object", sample="{
+    *  'messge':'success!'
+    * }" , description="")
+    */
     public function logout(Request $r)
     {
         $api_token = $r->input('api_token');

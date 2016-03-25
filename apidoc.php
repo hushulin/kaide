@@ -6,6 +6,7 @@ use Crada\Apidoc\Exception;
 
 $classes = array(
    'App\Http\Controllers\ExampleController',
+   'App\Http\Controllers\UserController',
 );
 
 $output_dir  = __DIR__.'/public/apidocs';
