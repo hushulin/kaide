@@ -110,7 +110,7 @@ class MeterController extends Controller
     */
     public function format(Request $r)
     {
-        $arr = ['code' => 2 , 'msg' => 'secc!' , 'data' => Auth::user()];
+        $arr = ['code' => 2 , 'msg' => 'secc!' , 'data' => User::where('id' , 4)->select('id','name')->first()];
         return response()->json($arr);
     }
 }
