@@ -19,7 +19,7 @@ class UserController extends Controller
 
     /**
     * @ApiDescription(section="User", description="用户中心-注册")
-    * @ApiMethod(type="get")
+    * @ApiMethod(type="post")
     * @ApiRoute(name="/user/register")
     * @ApiParams(name="name", type="string", nullable=false, description="用户名")
     * @ApiParams(name="password", type="string", nullable=false, description="密码")
@@ -49,7 +49,7 @@ class UserController extends Controller
 
     /**
     * @ApiDescription(section="User", description="用户中心-登录")
-    * @ApiMethod(type="get")
+    * @ApiMethod(type="post")
     * @ApiRoute(name="/user/login")
     * @ApiParams(name="name", type="string", nullable=false, description="用户名")
     * @ApiParams(name="password", type="string", nullable=false, description="密码")
@@ -79,7 +79,7 @@ class UserController extends Controller
 
     /**
     * @ApiDescription(section="User", description="用户中心-退出")
-    * @ApiMethod(type="get")
+    * @ApiMethod(type="post")
     * @ApiRoute(name="/user/logout")
     * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
     * @ApiReturn(type="object", sample="{
@@ -101,7 +101,7 @@ class UserController extends Controller
 
     /**
     * @ApiDescription(section="User", description="用户中心-修改用户的密码，默认水表 ，绑定微信号")
-    * @ApiMethod(type="get")
+    * @ApiMethod(type="post")
     * @ApiRoute(name="/user/update")
     * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
     * @ApiParams(name="password", type="string", nullable=true, description="修改密码")
@@ -144,7 +144,7 @@ class UserController extends Controller
 
     /**
     * @ApiDescription(section="User", description="用户中心-用户余额")
-    * @ApiMethod(type="get")
+    * @ApiMethod(type="post")
     * @ApiRoute(name="/user/money")
     * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
     * @ApiReturn(type="object", sample="{

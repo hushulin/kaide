@@ -17,7 +17,7 @@ class MeterController extends Controller
 
     /**
     * @ApiDescription(section="Meter", description="水表-添加水表")
-    * @ApiMethod(type="get")
+    * @ApiMethod(type="post")
     * @ApiRoute(name="/meter/add")
     * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
     * @ApiParams(name="meter_number", type="string", nullable=false, description="水表的ID")
@@ -51,7 +51,7 @@ class MeterController extends Controller
 
     /**
     * @ApiDescription(section="Meter", description="水表-该账户下的所有水表")
-    * @ApiMethod(type="get")
+    * @ApiMethod(type="post")
     * @ApiRoute(name="/meter")
     * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
     * @ApiReturn(type="object", sample="[{
@@ -71,7 +71,7 @@ class MeterController extends Controller
 
     /**
     * @ApiDescription(section="Meter", description="水表-设置默认水表")
-    * @ApiMethod(type="get")
+    * @ApiMethod(type="post")
     * @ApiRoute(name="/meter/set-default")
     * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
     * @ApiParams(name="default_meter", type="int", nullable=false, description="水表ID")
