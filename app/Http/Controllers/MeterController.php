@@ -65,7 +65,7 @@ class MeterController extends Controller
     */
     public function index(Request $r)
     {
-        return response(Meter::where('user_id' , Auth::id())->get() , 200)->header('Content-Type' , 'json');
+        return response()->json(apiformat(1,'读取成功！' , Meter::where('user_id' , Auth::id())->get()));
     }
 
 
