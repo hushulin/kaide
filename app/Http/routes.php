@@ -29,6 +29,7 @@ $app->get('/user' , ['middleware' => 'auth:admin' , function() use ($app) {
 $app->post('/user/register' , ['uses' => 'UserController@register']);
 $app->post('/user/login' , ['uses' => 'UserController@login']);
 $app->post('/user/logout' , ['uses' => 'UserController@logout']);
+$app->post('/api/format' , ['uses' => 'MeterController@format']);
 
 $app->post('/user/update' , ['middleware' => 'auth:admin' , 'uses' => 'UserController@update']);
 

@@ -93,4 +93,24 @@ class MeterController extends Controller
 
         return response(['message' => '设置成功！ID:' . $r->input('default_meter') ] , 200)->header('Content-Type' , 'json');
     }
+
+    /**
+    * @ApiDescription(section="Meter", description="测试接口")
+    * @ApiMethod(type="post")
+    * @ApiRoute(name="/api/format")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiReturn(type="object", sample="{
+    *  'code':'int',
+    *  'msg':'string',
+    *  'data':{
+    *      'id':'int',
+    *      'name':'string'
+    *  }
+    * }")
+    */
+    public function format(Request $r)
+    {
+        $arr = ['code' => 2 , 'msg' => 'secc!' , 'data' => Auth::user()];
+        return response()->setContent($arr)->header('Content-Type' , 'json')
+    }
 }
