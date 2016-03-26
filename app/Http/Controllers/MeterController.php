@@ -111,6 +111,6 @@ class MeterController extends Controller
     public function format(Request $r)
     {
         $arr = ['code' => 2 , 'msg' => 'secc!' , 'data' => Auth::user()];
-        return response()->setContent($arr)->header('Content-Type' , 'json');
+        return response()->json($arr);
     }
 }
