@@ -160,9 +160,9 @@ class UserController extends Controller
 
             $user = Auth::user();
 
-            $destinationPath = storage_path('upload');
+            $destinationPath = storage_path('app');
 
-            $fileName = md5(md5($face) . microtime());
+            $fileName = md5(md5($face) . microtime()) . '.' . $face->getClientOriginalExtension();
 
             $request->file('face')->move($destinationPath , $fileName);
 
