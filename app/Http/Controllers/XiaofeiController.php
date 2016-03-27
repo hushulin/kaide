@@ -19,8 +19,8 @@ class XiaofeiController extends Controller
     * @ApiRoute(name="/xiaofei/xflist")
     * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
     * @ApiParams(name="meter_id", type="int", nullable=false, description="要查询的水表ID")
-    * @ApiParams(name="start", sample="2016-03-27" , type="datetime", nullable=true, description="要查询的起始时间，可不传，不传就没有限制")
-    * @ApiParams(name="end", sample="2016-03-27" , type="datetime", nullable=true, description="要查询的结束时间，可不传，不传就没有限制")
+    * @ApiParams(name="start", type="datetime", nullable=true, description="要查询的起始时间，可不传，不传就没有限制 2016-03-27")
+    * @ApiParams(name="end", type="datetime", nullable=true, description="要查询的结束时间，可不传，不传就没有限制 2016-03-27")
     * @ApiReturn(type="object", sample="{
     *  'money':'2.00'
     * }")
