@@ -115,9 +115,9 @@ class MeterController extends Controller
 
         $user = Auth::user();
 
-        if ( $pay_money <= 0 || $pay_ton <= 0 ) {
-            return response()->json(apiformat(-1 , '参数无效！'));
-        }
+        // if ( $pay_money <= 0 || $pay_ton <= 0 ) {
+        //     return response()->json(apiformat(-1 , '参数无效！'));
+        // }
 
         if ($user->money < $pay_money) {
             return response()->json(apiformat(-2 , '余额不足！'));
