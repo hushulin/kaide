@@ -110,6 +110,7 @@ class UserController extends Controller
     * @ApiParams(name="password", type="string", nullable=true, description="修改密码")
     * @ApiParams(name="default_meter", type="int", nullable=true, description="修改默认水表")
     * @ApiParams(name="wechat_number", type="string", nullable=true, description="绑定微信号")
+    * @ApiParams(name="xiaoqu", type="string", nullable=true, description="修改小区名")
     * @ApiReturn(type="object", sample="{
     *  'messge':'password update success!'
     * }")
@@ -123,6 +124,7 @@ class UserController extends Controller
         $password = $r->input('password');
         $default_meter = $r->input('default_meter');
         $wechat_number = $r->input('wechat_number');
+        $xiaoqu = $r->input('xiaoqu');
 
         $msg = ' ';
         if ($password) {
@@ -138,6 +140,11 @@ class UserController extends Controller
         if ($wechat_number) {
             $user->wechat_number = $wechat_number;
             $msg .= 'wechat_number update success!';
+        }
+
+        if ($xiaoqu) {
+            $user->xiaoqu = $xiaoqu;
+            $msg .= 'xiaoqu update success!';
         }
 
         $user->save();
