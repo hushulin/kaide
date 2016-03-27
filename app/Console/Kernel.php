@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-        Commands\XiaofeiCommand,
+        Commands\XiaofeiCommand::class,
     ];
 
     /**
