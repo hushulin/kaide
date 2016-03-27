@@ -21,5 +21,17 @@ function apiformat()
 		}
 	}
 
+	if ( !isset($arrReturns['code']) ) {
+		$arrReturns['code'] = 1;
+	}
+
+	if ( !isset($arrReturns['msg']) ) {
+		$arrReturns['msg'] = '操作成功！';
+	}
+
+	if ( !isset($arrReturns['data']) ) {
+		$arrReturns['data'] = [];
+	}
+
 	return $arrReturns;
 }

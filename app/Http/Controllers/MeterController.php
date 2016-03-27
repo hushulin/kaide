@@ -35,7 +35,7 @@ class MeterController extends Controller
         $meter_number = $r->input('meter_number');
 
         if ( Meter::where('meter_number' , $meter_number)->where('user_id' , Auth::id())->count() ) {
-            return response(['message' => '该账户下已经添加过次水表！'] , 200)->header('Content-Type' , 'json');
+            return response(apiformat('该账户下已经添加过次水表！' , -1 , []) , 200)->header('Content-Type' , 'json');
         }
         $meter_md5 = md5($meter_number);
         $user_id = Auth::id();
@@ -43,9 +43,9 @@ class MeterController extends Controller
         $meter_ton = 0;
         $add_meter = Meter::create(compact('meter_number','meter_md5','user_id','status','meter_ton'));
         if ($add_meter) {
-            return response(['meter' => $add_meter] , 200)->header('Content-Type' , 'json');
+            return response(apiformat($add_meter) , 200)->header('Content-Type' , 'json');
         }else {
-            return response(['message' => '添加水表出错！'] , 200)->header('Content-Type' , 'json');
+            return response(apiformat('添加水表出错！' , -2) , 200)->header('Content-Type' , 'json');
         }
     }
 
@@ -65,7 +65,7 @@ class MeterController extends Controller
     */
     public function index(Request $r)
     {
-        return response()->json(apiformat(1,'读取成功！' , Meter::where('user_id' , Auth::id())->get()));
+        return response()->json(apiformat(Meter::where('user_id' , Auth::id())->get()));
     }
 
 
@@ -86,12 +86,12 @@ class MeterController extends Controller
         $user->default_meter = $r->input('default_meter');
 
         if ( ! Meter::find($r->input('default_meter')) ) {
-            return response(['message' => '设置失败！没有水表:' . $r->input('default_meter') ] , 200)->header('Content-Type' , 'json');
+            return response(apiformat('设置失败！没有水表:' . $r->input('default_meter') , -1) , 200)->header('Content-Type' , 'json');
         }
 
         $user->save();
 
-        return response(['message' => '设置成功！ID:' . $r->input('default_meter') ] , 200)->header('Content-Type' , 'json');
+        return response(apiformat('设置成功！ID:' . $r->input('default_meter')) , 200)->header('Content-Type' , 'json');
     }
 
     /**
@@ -110,7 +110,6 @@ class MeterController extends Controller
     */
     public function format(Request $r)
     {
-        $arr = ['code' => 2 , 'msg' => 'secc!' , 'data' => User::where('id' , 4)->select('id','name')->first()];
-        return response()->json(apiformat("srccc" , -1 , User::where('id' , 4)->select('id','name')->first()));
+        return response()->json(apiformat());
     }
 }

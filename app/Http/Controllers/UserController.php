@@ -32,7 +32,7 @@ class UserController extends Controller
         $name = $r->input('name');
 
         if ( User::where('name' , $name)->count() ) {
-            return response(['message' => '用户名已经被使用！'] , 200);
+            return response(apiformat('用户名已经被使用！' , -1) , 200);
         }
 
         $password = $r->input('password');
@@ -44,7 +44,7 @@ class UserController extends Controller
             'api_token' => $api_token,
         ]);
 
-        return response(['api_token' => $api_token] , 200)->header('Content-Type' , 'json');
+        return response(apiformat(['api_token' => $api_token]) , 200)->header('Content-Type' , 'json');
     }
 
     /**
@@ -69,12 +69,14 @@ class UserController extends Controller
             $user->save();
             $content = ['api_token' => $user->api_token];
             $status = 200;
+            $code = 1;
         }else {
             $content = ['api_token' => null];
             $status = 200;
+            $code = -1;
         }
 
-        return response($content , $status)->header('Content-Type' , 'json');
+        return response(apiformat($content , $code) , $status)->header('Content-Type' , 'json');
     }
 
     /**
@@ -95,7 +97,7 @@ class UserController extends Controller
             ]);
         }
 
-        return response(['messge' => 'success!'] , 200)->header('Content-Type' , 'json');
+        return response(apiformat('success!') , 200)->header('Content-Type' , 'json');
     }
 
 
@@ -121,7 +123,7 @@ class UserController extends Controller
         $default_meter = $r->input('default_meter');
         $wechat_number = $r->input('wechat_number');
 
-        $msg = '';
+        $msg = ' ';
         if ($password) {
             $user->password = $password;
             $msg .= 'password update success!';
@@ -139,7 +141,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return response(['messge' => $msg] , 200)->header('Content-Type' , 'json');
+        return response(apiformat($msg) , 200)->header('Content-Type' , 'json');
     }
 
     /**
@@ -154,7 +156,7 @@ class UserController extends Controller
     public function money(Request $r)
     {
         $money = Auth::user()->money;
-        return response([ 'money' => $money ] , 200)->header('Content-Type' , 'json');
+        return response(apiformat([ 'money' => $money ]) , 200)->header('Content-Type' , 'json');
     }
 
 
