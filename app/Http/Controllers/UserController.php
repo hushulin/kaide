@@ -160,9 +160,9 @@ class UserController extends Controller
 
             $user = Auth::user();
 
-            $filePath = 'face/' . date('Ymd') . '/';
+            $filePath = 'public/face/' . date('Ymd') . '/';
 
-            $destinationPath = public_path($filePath);
+            $destinationPath = base_path($filePath);
 
             $fileName = md5(md5($face) . microtime()) . '.' . $face->getClientOriginalExtension();
 
@@ -170,7 +170,7 @@ class UserController extends Controller
 
             $request->file('face')->move($destinationPath , $fileName);
 
-            $user->face = '/' . $savePath;
+            $user->face = '/' . str_replace('public/', '', $savePath);
 
             $user->save();
 
