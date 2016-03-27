@@ -138,6 +138,53 @@ class MeterController extends Controller
     }
 
     /**
+    * @ApiDescription(section="Meter", description="设置水表开关")
+    * @ApiMethod(type="post")
+    * @ApiRoute(name="/meter/set-status")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiParams(name="id", type="int", nullable=false, description="要设置的水表ID")
+    * @ApiParams(name="status", type="int", nullable=false, description="要设置的状态，1为开启，0为关闭")
+    * @ApiReturn(type="object", sample="{
+    *  'code':'int',
+    *  'msg':'string',
+    *  'data':{
+    *      'id':'int',
+    *      'name':'string'
+    *  }
+    * }")
+    */
+    public function setStatus(Request $r)
+    {
+        $status = $r->input('status');
+        $id = $r->input('id');
+        Meter::where('id' , $id)->update(['status' => $status]);
+        return response()->json(apiformat());
+    }
+
+    /**
+    * @ApiDescription(section="Meter", description="根据MD5获取水表信息")
+    * @ApiMethod(type="post")
+    * @ApiRoute(name="/meter/get-by-md5")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiParams(name="meter_md5", type="string", nullable=false, description="水表的MD5值")
+    * @ApiReturn(type="object", sample="{
+    *  'code':'int',
+    *  'msg':'string',
+    *  'data':{
+    *      'id':'int',
+    *      'name':'string'
+    *  }
+    * }")
+    */
+    public function getByMd5(Request $r)
+    {
+        $meter_md5 = $r->input('meter_md5');
+        $meter = Meter::where('meter_md5' , $meter_md5)->first();
+
+        return response()->json(apiformat($meter));
+    }
+
+    /**
     * @ApiDescription(section="Meter", description="测试接口")
     * @ApiMethod(type="post")
     * @ApiRoute(name="/api/format")

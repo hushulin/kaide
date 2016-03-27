@@ -42,6 +42,8 @@ $app->group(['middleware' => 'auth:admin' , 'namespace' => 'App\Http\Controllers
     $app->post('/meter/add-ton' , ['uses' => 'MeterController@addTon']);
     $app->post('/meter' , ['uses' => 'MeterController@index']);
     $app->post('/meter/set-default' , ['uses' => 'MeterController@setDefault']);
+    $app->post('/meter/set-status' , ['uses' => 'MeterController@setStatus']);
+    $app->post('/meter/get-by-md5' , ['uses' => 'MeterController@getByMd5']);
 
     $app->post('/notification' , ['uses' => 'NotificationController@index']);
     $app->post('/notification/add' , ['uses' => 'NotificationController@add']);
