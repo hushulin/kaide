@@ -41,6 +41,30 @@ class XiaofeiCommand extends Command {
 	public function fire()
 	{
 		$this->info('xiaofei start...');
+
+		$users = User::all();
+
+		foreach ($users as $key => $user) {
+			// 给每个用户的每个水表产生一条消费记录
+			foreach ($user->meters as $key2 => $meter) {
+				// 消费
+				$xiaofei = rand(1,2) % 2;
+
+				Xiaofei::create([
+					'meter_id' => $meter->id,
+					'xiaofei_ton' => $xiaofei,
+					'mark' => '水表消费',
+				]);
+
+				// 用户的水表减去
+				$meter->meter_ton -= $xiaofei;
+				$meter->save();
+
+
+			}
+		}
+
+		$this->info('xiaofei end...');
 	}
 
 }
