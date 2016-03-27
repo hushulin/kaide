@@ -31,4 +31,9 @@ class User extends Model implements
     protected $hidden = [
         'password',
     ];
+
+    public function meters()
+    {
+        return $this->hasMany('App\Models\Meter');
+    }
 }

@@ -4,6 +4,9 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+use App\User;
+use App\Models\Xiaofei;
+
 class XiaofeiCommand extends Command {
 
 	/**
