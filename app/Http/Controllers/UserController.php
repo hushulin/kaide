@@ -160,4 +160,34 @@ class UserController extends Controller
     }
 
 
+    /**
+    * @ApiDescription(section="User", description="用户中心-充值")
+    * @ApiMethod(type="post")
+    * @ApiRoute(name="/user/add-money")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiParams(name="money", type="integer", nullable=false, description="充值金额")
+    * @ApiReturn(type="object", sample="{
+    *  'money':'2.00'
+    * }")
+    */
+    public function addMoney(Request $r)
+    {
+        $money = $->input('money');
+        if ($money <= 0) {
+            return response()->json(apiformat('无效的金额！' , -1));
+        }
+        $user = Auth::user();
+        $user->money += $money * 1;
+        $user->save();
+
+        Money::create([
+            'user_id' => $user->id,
+            'pay_money' => $money,
+            'mark' => '接口充值',
+        ]);
+
+        return response()->json(apiformat('充值成功！'));
+    }
+
+
 }
