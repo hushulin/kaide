@@ -32,7 +32,7 @@ class ResponseFactory
      * @param  int    $options
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function json($data = [], $status = 200, array $headers = [], $options = 0)
+    public function json($data = [], $status = 200, array $headers = [], $options = JSON_UNESCAPED_UNICODE)
     {
         if ($data instanceof Arrayable) {
             $data = $data->toArray();
