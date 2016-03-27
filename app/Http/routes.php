@@ -42,5 +42,7 @@ $app->group(['middleware' => 'auth:admin' , 'namespace' => 'App\Http\Controllers
 
     $app->post('/notification' , ['uses' => 'NotificationController@index']);
     $app->post('/notification/add' , ['uses' => 'NotificationController@add']);
+
+    $app->post('/xiaofei/xflist' , ['uses' => 'XiaofeiController@xflist']);
 });
 //
