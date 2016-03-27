@@ -39,5 +39,8 @@ $app->group(['middleware' => 'auth:admin' , 'namespace' => 'App\Http\Controllers
     $app->post('/meter/add' , ['uses' => 'MeterController@add']);
     $app->post('/meter' , ['uses' => 'MeterController@index']);
     $app->post('/meter/set-default' , ['uses' => 'MeterController@setDefault']);
+
+    $app->post('/notification' , ['uses' => 'NotificationController@index']);
+    $app->post('/notification/add' , ['uses' => 'NotificationController@add']);
 });
 //
