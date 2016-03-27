@@ -151,7 +151,7 @@ class UserController extends Controller
     * @ApiMethod(type="post")
     * @ApiRoute(name="/user/update-face")
     * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
-    * @ApiParams(name="face", type="file", nullable=true, description="上传头像")
+    * @ApiParams(name="face", type="object", nullable=true, description="上传头像")
     */
     public function updateFace(Request $request)
     {
