@@ -37,6 +37,7 @@ $app->group(['middleware' => 'auth:admin' , 'namespace' => 'App\Http\Controllers
 {
     $app->post('/user/money', ['uses' => 'UserController@money']);
     $app->post('/user/add-money', ['uses' => 'UserController@addMoney']);
+    $app->post('/user/update-face' , ['uses' => 'UserController@updateFace']);
 
     $app->post('/meter/add' , ['uses' => 'MeterController@add']);
     $app->post('/meter/add-ton' , ['uses' => 'MeterController@addTon']);

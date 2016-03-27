@@ -145,6 +145,37 @@ class UserController extends Controller
         return response(apiformat($msg) , 200)->header('Content-Type' , 'json');
     }
 
+
+    /**
+    * @ApiDescription(section="User", description="用户中心-上传头像")
+    * @ApiMethod(type="post")
+    * @ApiRoute(name="/user/update-face")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiParams(name="face", type="file", nullable=true, description="上传头像")
+    */
+    public function updateFace(Request $request)
+    {
+        $face = $request->file('face');
+        if ( $request->hasFile('face') ) {
+
+            $user = Auth::user();
+
+            $destinationPath = storage_path('upload');
+
+            $fileName = md5(md5($face) . microtime());
+
+            $request->file('face')->move($destinationPath , $fileName);
+
+            $user->face = $destinationPath . $fileName;
+
+            $user->save();
+
+            return response()->json(apiformat([ 'face' => $destinationPath . $fileName ]));
+        }
+
+        return response()->json(apiformat(-1 , '上传文件无效！'));
+    }
+
     /**
     * @ApiDescription(section="User", description="用户中心-用户余额")
     * @ApiMethod(type="post")
