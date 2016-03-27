@@ -110,14 +110,14 @@ class MeterController extends Controller
     public function addTon(Request $req)
     {
         $meter_id = $req->input('meter_id');
-        $pay_ton = $req->input('meter_ton');
+        $pay_ton = $req->input('pay_ton');
         $pay_money = $req->input('pay_money');
 
         $user = Auth::user();
 
-        // if ( $pay_money <= 0 || $pay_ton <= 0 ) {
-        //     return response()->json(apiformat(-1 , '参数无效！'));
-        // }
+        if ( $pay_money <= 0 || $pay_ton <= 0 ) {
+            return response()->json(apiformat(-1 , '参数无效！'));
+        }
 
         if ($user->money < $pay_money) {
             return response()->json(apiformat(-2 , '余额不足！'));
