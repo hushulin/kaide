@@ -68,7 +68,7 @@ class UserController extends Controller
             $api_token = md5($name . $password . time());
             $user->api_token = $api_token;
             $user->save();
-            $content = $user;
+            $content = $user->with('meters');
             $status = 200;
             $code = 1;
         }else {
