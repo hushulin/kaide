@@ -174,7 +174,7 @@ class UserController extends Controller
 
             $user->save();
 
-            return response()->json(apiformat([ 'face' => $destinationPath . $fileName ]));
+            return response()->json(apiformat($user));
         }
 
         return response()->json(apiformat(-1 , '上传文件无效！'));
