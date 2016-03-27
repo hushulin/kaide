@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Auth;
 use App\Models\Meter;
+use App\Models\Order;
 
 class MeterController extends Controller
 {
@@ -92,6 +93,48 @@ class MeterController extends Controller
         $user->save();
 
         return response(apiformat('设置成功！ID:' . $r->input('default_meter')) , 200)->header('Content-Type' , 'json');
+    }
+
+    /**
+    * @ApiDescription(section="Meter", description="水表-充值水费 ， 充值的吨数与消费的金额都传过来，如果不传，则告诉我换算关系")
+    * @ApiMethod(type="post")
+    * @ApiRoute(name="/meter/add-ton")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiParams(name="meter_id", type="int", nullable=false, description="水表ID")
+    * @ApiParams(name="pay_ton", type="string", nullable=true, description="充值多少吨")
+    * @ApiParams(name="pay_money", type="string", nullable=true, description="充值多少钱")
+    * @ApiReturn(type="object", sample="[{
+    *  'message':'string'
+    * }]")
+    */
+    public function addTon(Request $req)
+    {
+        $meter_id = $req->input('meter_id');
+        $pay_ton = $req->input('meter_ton');
+        $pay_money = $req->input('pay_money');
+
+        $user = Auth::user();
+
+        if ( $pay_money <= 0 || $pay_ton <= 0 ) {
+            return response()->json(apiformat(-1 , '参数无效！'));
+        }
+
+        if ($user->money < $pay_money) {
+            return response()->json(apiformat(-2 , '余额不足！'));
+        }
+
+        Order::create([
+            'meter_id' => $meter_id ,
+            'pay_ton' => $pay_ton ,
+            'pay_money' => $pay_money ,
+            'user_id' => $user->id ,
+        ]);
+
+        Meter::where('id' , $meter_id)->increment('meter_ton' , $pay_ton);
+
+        $user->decrement('money' , $pay_money);
+
+        return response()->json(apiformat());
     }
 
     /**
