@@ -172,7 +172,7 @@ class UserController extends Controller
     */
     public function addMoney(Request $r)
     {
-        $money = $->input('money');
+        $money = $r->input('money');
         if ($money <= 0) {
             return response()->json(apiformat('无效的金额！' , -1));
         }
