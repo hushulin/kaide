@@ -101,8 +101,8 @@ class MeterController extends Controller
     * @ApiRoute(name="/meter/add-ton")
     * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
     * @ApiParams(name="meter_id", type="int", nullable=false, description="水表ID")
-    * @ApiParams(name="pay_ton", type="string", nullable=false, description="充值多少吨")
-    * @ApiParams(name="pay_money", type="string", nullable=false, description="充值多少钱")
+    * @ApiParams(name="pay_ton", type="float", nullable=false, description="充值多少吨")
+    * @ApiParams(name="pay_money", type="float", nullable=false, description="充值多少钱")
     * @ApiReturn(type="object", sample="[{
     *  'message':'string'
     * }]")
