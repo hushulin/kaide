@@ -48,7 +48,7 @@ class XiaofeiCommand extends Command {
 			// 给每个用户的每个水表产生一条消费记录
 			foreach ($user->meters as $key2 => $meter) {
 				// 消费
-				$xiaofei = rand(1,2) % 2;
+				$xiaofei = rand(1,2) % 2 + 1;
 
 				Xiaofei::create([
 					'meter_id' => $meter->id,
