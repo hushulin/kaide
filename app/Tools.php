@@ -30,7 +30,7 @@ function apiformat()
 	}
 
 	if ( !isset($arrReturns['data']) ) {
-		$arrReturns['data'] = '';
+		$arrReturns['data'] = object;
 	}
 
 	return $arrReturns;
