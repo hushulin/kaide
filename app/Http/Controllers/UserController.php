@@ -69,16 +69,15 @@ class UserController extends Controller
             $user->api_token = $api_token;
             $user->save();
             $content = $user->where('api_token' , $api_token)->with('meters')->first();
-            $status = 200;
             $code = 1;
+            $msg = '登录成功！';
         }else {
             $content = [];
-            $status = 200;
             $code = -1;
+            $msg = '账号密码错误！';
         }
 
-        return response()->json(apiformat($content , $code));
-        // return response(apiformat($content , $code) , $status)->header('Content-Type' , 'json');
+        return response()->json(apiformat($content , $code , $msg));
     }
 
     /**
