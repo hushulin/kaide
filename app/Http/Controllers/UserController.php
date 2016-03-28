@@ -77,7 +77,8 @@ class UserController extends Controller
             $code = -1;
         }
 
-        return response(apiformat($content , $code) , $status)->header('Content-Type' , 'json');
+        return response()->json(apiformat($content , $code));
+        // return response(apiformat($content , $code) , $status)->header('Content-Type' , 'json');
     }
 
     /**
