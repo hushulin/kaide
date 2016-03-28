@@ -72,7 +72,7 @@ class UserController extends Controller
             $code = 1;
             $msg = '登录成功！';
         }else {
-            $content = [];
+            $content = (object) array();
             $code = -1;
             $msg = '账号密码错误！';
         }
