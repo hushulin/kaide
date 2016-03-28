@@ -45,7 +45,7 @@ class UserController extends Controller
             'api_token' => $api_token,
         ]);
 
-        return response(apiformat(['api_token' => $api_token]) , 200)->header('Content-Type' , 'json');
+        return response()->json(apiformat(['api_token' => $api_token]));
     }
 
     /**
@@ -98,7 +98,7 @@ class UserController extends Controller
             ]);
         }
 
-        return response(apiformat('success!') , 200)->header('Content-Type' , 'json');
+        return response()->json(apiformat());
     }
 
 
@@ -149,7 +149,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return response(apiformat($msg) , 200)->header('Content-Type' , 'json');
+        return response()->json(apiformat($msg));
     }
 
 
@@ -199,7 +199,7 @@ class UserController extends Controller
     public function money(Request $r)
     {
         $money = Auth::user()->money;
-        return response(apiformat([ 'money' => $money ]) , 200)->header('Content-Type' , 'json');
+        return response()->json(apiformat([ 'money' => $money ]));
     }
 
 
