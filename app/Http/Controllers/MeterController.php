@@ -185,6 +185,26 @@ class MeterController extends Controller
     }
 
     /**
+    * @ApiDescription(section="Meter", description="实时水费查询")
+    * @ApiMethod(type="post")
+    * @ApiRoute(name="/meter/act-meter-fee")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiParams(name="id", type="int", nullable=false, description="实时水费查询-水表ID")
+    * @ApiReturn(type="object", sample="{
+    *  'code':'int',
+    *  'msg':'string',
+    *  'data':{
+    *      'id':'int',
+    *      'name':'string'
+    *  }
+    * }")
+    */
+    public function actMeterFee(Request $r)
+    {
+        $id = $r->input('id');
+    }
+
+    /**
     * @ApiDescription(section="Meter", description="测试接口")
     * @ApiMethod(type="post")
     * @ApiRoute(name="/api/format")
