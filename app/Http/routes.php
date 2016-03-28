@@ -55,4 +55,5 @@ $app->group(['middleware' => 'auth:admin' , 'namespace' => 'App\Http\Controllers
 
 $app->post('/github/push' , function(){
     return exec("cd /var/www/kaide && git pull origin master 1>&2");
+
 });
