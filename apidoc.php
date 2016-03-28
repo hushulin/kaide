@@ -9,6 +9,7 @@ $classes = array(
    'App\Http\Controllers\UserController',
    'App\Http\Controllers\MeterController',
    'App\Http\Controllers\XiaofeiController',
+   'App\Http\Controllers\NotificationController',
 );
 
 $output_dir  = __DIR__.'/public/apidocs';
