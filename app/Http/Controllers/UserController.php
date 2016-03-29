@@ -232,6 +232,22 @@ class UserController extends Controller
         return response()->json(apiformat([ 'money' => $money ]));
     }
 
+    /**
+    * @ApiDescription(section="User", description="用户中心-用户默认水表的余下的水吨数")
+    * @ApiMethod(type="post")
+    * @ApiRoute(name="/user/default-meter-ton")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiReturn(type="object", sample="{
+    *  'money':'2.00'
+    * }")
+    */
+    public function defaultMeterTon(Request $r)
+    {
+        $user = Auth::user();
+        $default_meter_ton = $user->default_meter ? $user->default_meter->meter_ton : 0;
+        return response()->json(apiformat(['default_meter_ton' => $default_meter_ton]));
+    }
+
 
     /**
     * @ApiDescription(section="User", description="用户中心-充值")

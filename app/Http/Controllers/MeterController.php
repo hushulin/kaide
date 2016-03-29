@@ -120,9 +120,9 @@ class MeterController extends Controller
             return response()->json(apiformat(-1 , '参数无效！'));
         }
 
-        if ($user->money < $pay_money) {
-            return response()->json(apiformat(-2 , '余额不足！'));
-        }
+        // if ($user->money < $pay_money) {
+        //     return response()->json(apiformat(-2 , '余额不足！'));
+        // }
 
         Order::create([
             'meter_id' => $meter_id ,
@@ -133,7 +133,7 @@ class MeterController extends Controller
 
         Meter::where('id' , $meter_id)->increment('meter_ton' , $pay_ton);
 
-        $user->decrement('money' , $pay_money);
+        // $user->decrement('money' , $pay_money);
 
         return response()->json(apiformat());
     }

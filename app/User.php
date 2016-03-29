@@ -37,6 +37,11 @@ class User extends Model implements
         return $this->hasMany('App\Models\Meter');
     }
 
+    public function default_meter()
+    {
+        return $this->hasOne('App\Models\Meter' , 'default_meter');
+    }
+
     public function money()
     {
         return $this->hasMany('App\Models\Money');
