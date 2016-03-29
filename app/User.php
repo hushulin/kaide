@@ -39,7 +39,7 @@ class User extends Model implements
 
     public function default_meter()
     {
-        return $this->hasOne('App\Models\Meter' , 'default_meter');
+        return $this->belongsTo('App\Models\Meter' , 'default_meter');
     }
 
     public function money()
