@@ -80,7 +80,7 @@ class UserController extends Controller
 
                 $api_token = md5($openid . time());
 
-                User::create([
+                $user = User::create([
                     'wechat_number' => $openid,
                     'api_token' => $api_token,
                 ]);
