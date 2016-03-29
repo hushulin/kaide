@@ -45,6 +45,10 @@ class MeterController extends Controller
 
         $meter = Meter::where('meter_number' , $meter_number)->orWhere('meter_md5' , $meter_md5)->first();
 
+        if (!$meter) {
+            return response()->json(apiformat('此水表不存在！' , -3));
+        }
+
         if ($meter->user_id != '') {
             return response()->json(apiformat('此水表已经被绑定！' , -2));
         }
