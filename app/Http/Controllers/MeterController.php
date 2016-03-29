@@ -228,6 +228,11 @@ class MeterController extends Controller
     {
         $year = $r->input('year');
         $meter_id = $r->input('meter_id');
+
+        if ( empty($year) || empty($meter_id) ) {
+            return response()->json(apiformat(-1 , '参数无效！'));
+        }
+
         $fees = Xiaofei::where('meter_id' , $meter_id)->whereRaw("date_format(`created_at` , '%Y') = {$year}")->get();
 
         return response()->json(apiformat($fees));
