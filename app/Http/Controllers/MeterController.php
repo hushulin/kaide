@@ -22,7 +22,7 @@ class MeterController extends Controller
     * @ApiMethod(type="post")
     * @ApiRoute(name="/meter/add")
     * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
-    * @ApiParams(name="meter_number", type="string", nullable=false, description="水表的ID")
+    * @ApiParams(name="meter_number", type="string", nullable=false, description="水表的编号")
     * @ApiReturn(type="object", sample="{
     *  'id':'int',
     *  'meter_number':'string',
@@ -37,7 +37,7 @@ class MeterController extends Controller
         $meter_number = $r->input('meter_number');
 
         if ( Meter::where('meter_number' , $meter_number)->where('user_id' , Auth::id())->count() ) {
-            return response()->json(apiformat('该账户下已经添加过次水表！' , -1));
+            return response()->json(apiformat('该账户下已经添加过此水表！' , -1));
         }
         $meter_md5 = md5($meter_number);
         $user_id = Auth::id();
@@ -205,6 +205,32 @@ class MeterController extends Controller
         $id = $r->input('id');
         $tons = Xiaofei::where('meter_id' , $id)->whereRaw("date_format(`created_at` , '%Y-%m') = date_format(now() , '%Y-%m')")->sum('xiaofei_ton');
         return response()->json(apiformat(['xiaofei_ton' => $tons] , '当月实时水费读取成功！'));
+    }
+
+
+    /**
+    * @ApiDescription(section="Meter", description="根据年份水费查询列表")
+    * @ApiMethod(type="post")
+    * @ApiRoute(name="/meter/fee-list-year")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiParams(name="meter_id", type="int", nullable=false, description="水表ID")
+    * @ApiParams(name="year", type="string", nullable=false, description="年份")
+    * @ApiReturn(type="object", sample="{
+    *  'code':'int',
+    *  'msg':'string',
+    *  'data':{
+    *      'id':'int',
+    *      'name':'string'
+    *  }
+    * }")
+    */
+    public function getFeeListByYear(Request $r)
+    {
+        $year = $r->input('year');
+        $meter_id = $r->input('meter_id');
+        $fees = Xiaofei::where('meter_id' , $meter_id)->whereRaw("date_format(`created_at` , '%Y') = {$year}")->get();
+
+        return response()->json(apiformat($fees));
     }
 
     /**
