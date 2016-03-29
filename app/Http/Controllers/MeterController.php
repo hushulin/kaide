@@ -7,6 +7,7 @@ use App\User;
 use Auth;
 use App\Models\Meter;
 use App\Models\Order;
+use App\Models\Xiaofei;
 
 class MeterController extends Controller
 {
@@ -185,7 +186,7 @@ class MeterController extends Controller
     }
 
     /**
-    * @ApiDescription(section="Meter", description="实时水费查询")
+    * @ApiDescription(section="Meter", description="当月实时水费查询")
     * @ApiMethod(type="post")
     * @ApiRoute(name="/meter/act-meter-fee")
     * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
@@ -202,6 +203,8 @@ class MeterController extends Controller
     public function actMeterFee(Request $r)
     {
         $id = $r->input('id');
+        $tons = Xiaofei::where('meter_id' , $id)->whereRaw("date_format(`created_at` , '%Y-%m') = date_format(now() , '%Y-%m')")->sum('xiaofei_ton');
+        return response()->json(apiformat(['xiaofei_ton' => $tons] , '当月实时水费读取成功！'));
     }
 
     /**
