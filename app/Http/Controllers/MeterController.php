@@ -23,6 +23,7 @@ class MeterController extends Controller
     * @ApiRoute(name="/meter/add")
     * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
     * @ApiParams(name="meter_number", type="string", nullable=false, description="水表的编号")
+    * @ApiParams(name="meter_md5", type="string", nullable=false, description="水表的编号的md5")
     * @ApiReturn(type="object", sample="{
     *  'id':'int',
     *  'meter_number':'string',
@@ -36,19 +37,23 @@ class MeterController extends Controller
     {
         $meter_number = $r->input('meter_number');
 
-        if ( Meter::where('meter_number' , $meter_number)->where('user_id' , Auth::id())->count() ) {
-            return response()->json(apiformat('该账户下已经添加过此水表！' , -1));
+        $meter_md5 = $r->input('meter_md5');
+
+        if ($meter_number == '' && $meter_md5 == '') {
+            return response()->json(apiformat('参数无效！' , -1));
         }
-        $meter_md5 = md5($meter_number);
-        $user_id = Auth::id();
-        $status = 1;
-        $meter_ton = 0;
-        $add_meter = Meter::create(compact('meter_number','meter_md5','user_id','status','meter_ton'));
-        if ($add_meter) {
-            return response()->json(apiformat($add_meter));
-        }else {
-            return response()->json(apiformat('添加水表出错！' , -2));
+
+        $meter = Meter::where('meter_number' , $meter_number)->orWhere('meter_md5' , $meter_md5)->first();
+
+        if ($meter->user_id != '') {
+            return response()->json(apiformat('此水表已经被绑定！' , -2));
         }
+
+        $meter->user_id = Auth::id();
+
+        $meter->save();
+
+        return response()->json(apiformat($meter));
     }
 
     /**
