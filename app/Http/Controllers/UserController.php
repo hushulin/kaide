@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Auth;
 use App\Models\Money;
+use App\Models\Meter;
 
 class UserController extends Controller
 {
@@ -246,9 +247,9 @@ class UserController extends Controller
 
         $user = Auth::user();
 
-        $user = $user->with('default_meter')->first();
+        $meter = Meter::find($user->default_meter);
 
-        $default_meter_ton = $user->default_meter ? $user->default_meter->meter_ton : 0;
+        $default_meter_ton = $meter ? $meter->meter_ton : 0;
 
         return response()->json(apiformat(['default_meter_ton' => $default_meter_ton]));
     }
