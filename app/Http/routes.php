@@ -38,6 +38,7 @@ $app->group(['middleware' => 'auth:admin' , 'namespace' => 'App\Http\Controllers
     $app->post('/user/money', ['uses' => 'UserController@money']);
     $app->post('/user/add-money', ['uses' => 'UserController@addMoney']);
     $app->post('/user/update-face' , ['uses' => 'UserController@updateFace']);
+    $app->post('/user/default-meter-ton' , ['uses' => 'UserController@defaultMeterTon']);
 
     $app->post('/meter/add' , ['uses' => 'MeterController@add']);
     $app->post('/meter/add-ton' , ['uses' => 'MeterController@addTon']);
@@ -47,7 +48,7 @@ $app->group(['middleware' => 'auth:admin' , 'namespace' => 'App\Http\Controllers
     $app->post('/meter/get-by-md5' , ['uses' => 'MeterController@getByMd5']);
     $app->post('/meter/act-meter-fee' , ['uses' => 'MeterController@actMeterFee']);
     $app->post('/meter/fee-list-year' , ['uses' => 'MeterController@getFeeListByYear']);
-    $app->post('/user/default-meter-ton' , ['uses' => 'UserController@defaultMeterTon']);
+
 
     $app->post('/notification' , ['uses' => 'NotificationController@index']);
     $app->post('/notification/add' , ['uses' => 'NotificationController@add']);
