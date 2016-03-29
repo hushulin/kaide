@@ -245,6 +245,9 @@ class UserController extends Controller
     {
 
         $user = Auth::user();
+
+        $user = $user->with('default_meter')->first();
+
         $default_meter_ton = $user->default_meter ? $user->default_meter->meter_ton : 0;
 
         return response()->json(apiformat(['default_meter_ton' => $default_meter_ton]));
