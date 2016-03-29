@@ -47,7 +47,7 @@ $app->group(['middleware' => 'auth:admin' , 'namespace' => 'App\Http\Controllers
     $app->post('/meter/get-by-md5' , ['uses' => 'MeterController@getByMd5']);
     $app->post('/meter/act-meter-fee' , ['uses' => 'MeterController@actMeterFee']);
     $app->post('/meter/fee-list-year' , ['uses' => 'MeterController@getFeeListByYear']);
-    $app->post('/user/default-meter-ton' , ['uses' => 'MeterController@defaultMeterTon']);
+    $app->post('/user/default-meter-ton' , ['uses' => 'UserController@defaultMeterTon']);
 
     $app->post('/notification' , ['uses' => 'NotificationController@index']);
     $app->post('/notification/add' , ['uses' => 'NotificationController@add']);

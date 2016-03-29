@@ -243,8 +243,10 @@ class UserController extends Controller
     */
     public function defaultMeterTon(Request $r)
     {
+
         $user = Auth::user();
         $default_meter_ton = $user->default_meter ? $user->default_meter->meter_ton : 0;
+
         return response()->json(apiformat(['default_meter_ton' => $default_meter_ton]));
     }
 
