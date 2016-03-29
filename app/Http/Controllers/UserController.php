@@ -54,6 +54,7 @@ class UserController extends Controller
     * @ApiRoute(name="/user/login")
     * @ApiParams(name="name", type="string", nullable=false, description="用户名")
     * @ApiParams(name="password", type="string", nullable=false, description="密码")
+    * @ApiParams(name="openid", type="string", nullable=false, description="微信唯一码openid")
     * @ApiReturn(type="object", sample="{
     *  'api_token':'string'
     * }")
@@ -62,6 +63,35 @@ class UserController extends Controller
     {
         $name = $r->input('name');
         $password = $r->input('password');
+        $openid = $r->input('openid');
+
+        if ($openid) {
+
+            $user = User::where('wechat_number' , $openid)->first();
+
+            if ($user) {
+                $api_token = md5($openid . time());
+                $user->api_token = $api_token;
+                $user->save();
+                $content = $user->where('api_token' , $api_token)->with('meters')->first();
+                $code = 1;
+                $msg = '登录成功！';
+            }else {
+
+                $api_token = md5($openid . time());
+
+                User::create([
+                    'wechat_number' => $openid,
+                    'api_token' => $api_token,
+                ]);
+
+                $content = $user->where('api_token' , $api_token)->with('meters')->first();
+                $code = 1;
+                $msg = '登录成功！';
+            }
+
+            return response()->json(apiformat($content , $code , $msg));
+        }
 
         $user = User::where('name' , $name)->where('password' , $password)->first();
         if ($user) {
