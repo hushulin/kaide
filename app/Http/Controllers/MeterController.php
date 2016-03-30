@@ -242,7 +242,7 @@ class MeterController extends Controller
             return response()->json(apiformat(-1 , '参数无效！'));
         }
 
-        $fees = Xiaofei::where('meter_id' , $meter_id)->whereRaw("date_format(`created_at` , '%Y') = {$year}")->get();
+        $fees = Xiaofei::where('meter_id' , $meter_id)->whereRaw("date_format(`created_at` , '%Y') = {$year}")->selectRaw("date_format(`created_at` , '%Y-%m') as month , SUM(`xiaofei_ton`) as total_ton")->groupBy('month')->orderBy('id' , 'desc')->get();
 
         return response()->json(apiformat($fees));
     }
