@@ -41,7 +41,7 @@ class XiaofeiController extends Controller
             $list->where('created_at' , '<=' , $end);
         }
 
-        $list->orderBy('id' , 'desc');
+        $list->selectRaw("date_format(`created_at` , '%Y-%m') as m")->groupBy('m')->orderBy('id' , 'desc');
 
         return response()->json(apiformat($list->get()));
     }
