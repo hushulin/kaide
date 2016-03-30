@@ -6,6 +6,7 @@ use App\User;
 use Auth;
 use App\Models\Money;
 use App\Models\Meter;
+use App\Models\Order;
 
 class UserController extends Controller
 {
@@ -252,6 +253,24 @@ class UserController extends Controller
         $default_meter_ton = $meter ? $meter->meter_ton : 0;
 
         return response()->json(apiformat(['default_meter_ton' => $default_meter_ton]));
+    }
+
+
+    /**
+    * @ApiDescription(section="User", description="用户中心-用户缴费记录")
+    * @ApiMethod(type="post")
+    * @ApiRoute(name="/user/user-order-list")
+    * @ApiParams(name="api_token", type="string", nullable=false, description="当前登录者的token")
+    * @ApiReturn(type="object", sample="{
+    *  'money':'2.00'
+    * }")
+    */
+    public function UserOrderList(Request $r)
+    {
+
+        $order = Order::where('user_id' , Auth::id())->with('meter')->get();
+
+        return response()->json(apiformat($order));
     }
 
 

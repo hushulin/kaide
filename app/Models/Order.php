@@ -8,4 +8,9 @@ class Order extends Model {
 
     protected $guarded = ['id'];
 
+    public function meter()
+    {
+        return $this->belongsTo('App\Models\Meter');
+    }
+
 }
