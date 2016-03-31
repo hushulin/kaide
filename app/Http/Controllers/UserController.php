@@ -57,6 +57,8 @@ class UserController extends Controller
     * @ApiParams(name="name", type="string", nullable=false, description="用户名")
     * @ApiParams(name="password", type="string", nullable=false, description="密码")
     * @ApiParams(name="openid", type="string", nullable=false, description="微信唯一码openid")
+    * @ApiParams(name="wxnickname", type="string", nullable=false, description="微信号 用于存入用户名中")
+    * @ApiParams(name="face", type="string", nullable=false, description="微信返回的头像")
     * @ApiReturn(type="object", sample="{
     *  'api_token':'string'
     * }")
@@ -66,6 +68,9 @@ class UserController extends Controller
         $name = $r->input('name');
         $password = $r->input('password');
         $openid = $r->input('openid');
+
+        $wxnickname = $r->input('wxnickname');
+        $face = $r->input('face');
 
         if ($openid) {
 
@@ -85,6 +90,8 @@ class UserController extends Controller
                 $user = User::create([
                     'wechat_number' => $openid,
                     'api_token' => $api_token,
+                    'name' => $wxnickname,
+                    'face' => $face,
                 ]);
 
                 $content = $user->where('api_token' , $api_token)->with('meters')->first();
@@ -142,6 +149,7 @@ class UserController extends Controller
     * @ApiParams(name="password", type="string", nullable=true, description="修改密码")
     * @ApiParams(name="default_meter", type="int", nullable=true, description="修改默认水表")
     * @ApiParams(name="wechat_number", type="string", nullable=true, description="绑定微信号")
+    * @ApiParams(name="wxnickname", type="string", nullable=true, description="绑定微信昵称到用户名上")
     * @ApiParams(name="xiaoqu", type="string", nullable=true, description="修改小区名")
     * @ApiReturn(type="object", sample="{
     *  'messge':'password update success!'
@@ -157,6 +165,7 @@ class UserController extends Controller
         $default_meter = $r->input('default_meter');
         $wechat_number = $r->input('wechat_number');
         $xiaoqu = $r->input('xiaoqu');
+        $wxnickname = $r->input('wxnickname');
 
         $msg = ' ';
         if ($password) {
@@ -177,6 +186,11 @@ class UserController extends Controller
         if ($xiaoqu) {
             $user->xiaoqu = $xiaoqu;
             $msg .= 'xiaoqu update success!';
+        }
+
+        if ($wxnickname) {
+            $user->name = $wxnickname;
+            $msg .= 'name update success!';
         }
 
         $user->save();
