@@ -100,4 +100,8 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
 
 require __DIR__.'/../app/Tools.php';
 
+DB::listen(function ($query) {
+	Log::info($query);
+});
+
 return $app;
