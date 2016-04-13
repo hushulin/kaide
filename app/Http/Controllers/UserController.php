@@ -223,7 +223,7 @@ class UserController extends Controller
 
             $request->file('face')->move($destinationPath , $fileName);
 
-            $user->face = $request->server('HTTP_HOST') . '/' . str_replace('public/', '', $savePath);
+            $user->face = 'http://' . $request->server('HTTP_HOST') . '/' . str_replace('public/', '', $savePath);
 
             $user->save();
 
