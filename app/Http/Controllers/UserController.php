@@ -168,6 +168,7 @@ class UserController extends Controller
         $wxnickname = $r->input('wxnickname');
 
         $msg = ' ';
+        $code = 1;
         if ($password) {
             $user->password = $password;
             $msg .= 'password update success!';
@@ -179,8 +180,9 @@ class UserController extends Controller
         }
 
         if ($wechat_number) {
-            if ($user->wechat_number) {
-                $msg .= 'wechat_number is already exsits!';
+            if ($user->wechat_number || User::where('wechat_number' , $wechat_number)->count()) {
+                $msg = '该微信号已被绑定!';
+                $code = 0;
             }else {
                 $user->wechat_number = $wechat_number;
                 $msg .= 'wechat_number update success!';
@@ -192,9 +194,10 @@ class UserController extends Controller
             $msg .= 'xiaoqu update success!';
         }
 
-        if ($wxnickname) {
-            if ($user->wechat_nickname) {
-                $msg .= 'wechat_nickname is already exsits!';
+        if ($wxnickname && $wechat_number) {
+            if ($user->wechat_nickname || User::where('wechat_number' , $wechat_number)->count()) {
+                $msg = '该微信号已被绑定!';
+                $code = 0;
             }else {
                 $user->wechat_nickname = $wxnickname;
                 $msg .= 'wechat_nickname update success!';
@@ -204,7 +207,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return response()->json(apiformat($msg));
+        return response()->json(apiformat($msg , $code));
     }
 
 
