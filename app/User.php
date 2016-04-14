@@ -20,7 +20,7 @@ class User extends Model implements
      * @var array
      */
     protected $fillable = [
-        'name', 'email','api_token','password','wechat_number','default_meter','money'
+        'name','wechat_nickname', 'email','api_token','password','wechat_number','default_meter','money'
     ];
 
     /**

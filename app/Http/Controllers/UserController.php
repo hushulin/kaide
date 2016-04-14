@@ -90,7 +90,7 @@ class UserController extends Controller
                 $user = User::create([
                     'wechat_number' => $openid,
                     'api_token' => $api_token,
-                    'name' => $wxnickname,
+                    'wechat_nickname' => $wxnickname,
                     'face' => $face,
                 ]);
 
@@ -189,8 +189,8 @@ class UserController extends Controller
         }
 
         if ($wxnickname) {
-            $user->name = $wxnickname;
-            $msg .= 'name update success!';
+            $user->wechat_nickname = $wxnickname;
+            $msg .= 'wechat_nickname update success!';
         }
 
         $user->save();
