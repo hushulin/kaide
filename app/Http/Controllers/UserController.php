@@ -179,8 +179,12 @@ class UserController extends Controller
         }
 
         if ($wechat_number) {
-            $user->wechat_number = $wechat_number;
-            $msg .= 'wechat_number update success!';
+            if ($user->wechat_number) {
+                $msg .= 'wechat_number is already exsits!';
+            }else {
+                $user->wechat_number = $wechat_number;
+                $msg .= 'wechat_number update success!';
+            }
         }
 
         if ($xiaoqu) {
@@ -189,8 +193,13 @@ class UserController extends Controller
         }
 
         if ($wxnickname) {
-            $user->wechat_nickname = $wxnickname;
-            $msg .= 'wechat_nickname update success!';
+            if ($user->wechat_nickname) {
+                $msg .= 'wechat_nickname is already exsits!';
+            }else {
+                $user->wechat_nickname = $wxnickname;
+                $msg .= 'wechat_nickname update success!';
+            }
+
         }
 
         $user->save();
