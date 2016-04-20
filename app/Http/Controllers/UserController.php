@@ -91,6 +91,7 @@ class UserController extends Controller
                     'wechat_number' => $openid,
                     'api_token' => $api_token,
                     'wechat_nickname' => $wxnickname ?: $name,
+                    'name' => $name ?: $wxnickname,
                     'face' => $face,
                 ]);
 
