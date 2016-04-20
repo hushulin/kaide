@@ -90,7 +90,7 @@ class UserController extends Controller
                 $user = User::create([
                     'wechat_number' => $openid,
                     'api_token' => $api_token,
-                    'wechat_nickname' => $wxnickname || $name,
+                    'wechat_nickname' => $wxnickname ?: $name,
                     'face' => $face,
                 ]);
 
