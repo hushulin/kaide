@@ -49,7 +49,7 @@ class MeterController extends Controller
             return response()->json(apiformat('此水表不存在！' , -3));
         }
 
-        if ($meter->user_id != '') {
+        if ( $meter->user_id ) {
             return response()->json(apiformat('此水表已经被绑定！' , -2));
         }
 
